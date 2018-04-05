@@ -1,0 +1,18 @@
+Welcome {{ user.email }}!
+Here are your past appointments:
+<ul>
+  <li ng-repeat='appointment in appointments'>
+    You had an appointment at {{ appointment.time }}.
+      <br />
+      Your appointment had the following services:
+      <ul>
+        <li ng-repeat='appointmentService in appointment.appointmentServices'>
+          {{ appointmentService.service.name }}
+        </li>
+      </ul>
+  </li>
+<ul>
+
+<!--  -->
+Would you like to book a new appointment?
+See future appointment:

@@ -10,6 +10,10 @@ const jwt = require('jwt-simple');
 const User = conn.define('user', {
   email: Sequelize.STRING,
   password: Sequelize.STRING
+}, {
+  defaultScope: {
+    attributes: ['email', 'id'],
+  },
 });
 
 User.findByToken = function(token){
@@ -42,9 +46,12 @@ User.authenticate = function(credentials){
   });
 };
 
-User.findAppointments = function(id){
+User.findAppointments = function(id, type){
+  // const now = moment();
+  // const requirements = {};
+  // requirements.userId =
   return User.findById(id)
-    .then( user => conn.models.appointment.findByUser(user));
+    .then( user => conn.models.appointment.findByUser(user, type));
 };
 
 module.exports = User;
