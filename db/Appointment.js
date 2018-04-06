@@ -1,5 +1,7 @@
 const conn = require('./conn');
 const { Sequelize } = conn;
+const moment = require('moment');
+const { Op } = Sequelize;
 
 const Appointment = conn.define('appointment', {
   time: {
@@ -8,10 +10,17 @@ const Appointment = conn.define('appointment', {
   }
 });
 
-Appointment.findByUser = function(user){
+Appointment.findByUser = function(user, type){
+  const whereReqs = { userId: user.id };
+  const now = moment().toDate();
+  if (type){
+    const timeReq = (type === 'past') ? Op.lt : Op.gte;
+    whereReqs.time = { [timeReq]: now };
+  }
   return this.findAll({
-    where: { userId : user.id },
+    where: whereReqs,
     include: [
+      conn.models.user,
       {
         model: conn.models.appointmentService,
         include: [

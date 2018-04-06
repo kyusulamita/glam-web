@@ -50,12 +50,14 @@ app.get('/api/sessions/:token', (req, res, next)=> {
     .catch(next);
 });
 
+
 app.get('/api/users/:id/appointments', (req, res, next)=> {
   if(!req.user || req.user.id !== req.params.id*1){
     return next({ status: 401 });
   }
-  User.findAppointments(req.params.id)
-    .then( appointments => res.send(appointments))
+  console.log(req.query);
+  User.findAppointments(req.params.id, req.query.type)
+    .then(appointments => res.send(appointments))
     .catch(next);
 });
 

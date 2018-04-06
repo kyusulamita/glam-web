@@ -1,0 +1,20 @@
+<ul>
+  <li ui-sref-active='active'>
+    <a ui-sref='home'>Home</a>
+  </li>
+  <li ui-sref-active='active'>
+    <a ui-sref='services'>Services</a>
+  </li>
+  <li ui-sref-active='active' ng-if='!isLoggedIn()'>
+      <a ui-sref='login' >Login</a>
+  </li>
+  <li ui-sref-active='active' ng-if='isLoggedIn()'>
+    <a ui-sref='appointments'>View Past Appointments ({{ appointmentCount() }}) </a>
+  </li>
+  <li ui-sref-active='active' ng-if='isLoggedIn()'>
+    <a ui-sref='appointments'>View/Edit Future Appointments ({{ appointmentCount() }}) </a>
+  </li>
+  <li ui-sref-active='active' ng-if='isLoggedIn()'>
+      <a ng-click='logout()'>Logout</a>
+  </li>
+</ul>
